@@ -38,47 +38,41 @@
             border-radius:3px; text-decoration:none; white-space:nowrap;
         }
 
-        /* F11 안내 — PC만 */
-        .f11-bar {
-            position:fixed; top:49px; left:0; right:0; z-index:99;
-            background:rgba(201,168,76,0.06);
-            border-bottom:1px solid rgba(201,168,76,0.12);
-            padding:7px 20px; text-align:center;
-            font-size:0.75rem; color:rgba(201,168,76,0.65); letter-spacing:0.3px;
-        }
-        .f11-bar strong { color:#c9a84c; }
-
         /* PC 레이아웃 */
-        .viewer { padding-top:95px; min-height:100vh; }
+        .viewer { padding-top:60px; min-height:100vh; }
         .viewer-inner {
             display:flex; justify-content:center; align-items:flex-start;
-            max-width:1400px; margin:0 auto; padding:20px 10px;
+            max-width:1500px; margin:0 auto; padding:30px 20px;
+            gap:0;
         }
 
-        /* 좌측 — 버전 목록 */
+        /* 좌측 버전 목록 */
         .side-left {
-            position:sticky; top:105px;
-            width:210px; flex-shrink:0;
-            padding-right:10px;
+            position:sticky; top:80px;
+            width:230px; flex-shrink:0;
+            margin-right:40px;
         }
         .side-label {
-            font-size:0.62rem; letter-spacing:3px; color:rgba(201,168,76,0.45);
-            font-weight:700; padding:0 8px 10px;
-            border-bottom:1px solid rgba(201,168,76,0.1);
-            margin-bottom:6px; display:block;
+            font-size:0.82rem; letter-spacing:2px; color:#c9a84c;
+            font-weight:900; padding:10px 14px 10px;
+            border:1px solid rgba(201,168,76,0.4);
+            border-radius:5px;
+            margin-bottom:10px; display:block;
+            text-align:center;
+            background:rgba(201,168,76,0.06);
         }
         .ver-btn {
-            display:block; padding:9px 12px;
+            display:block; padding:10px 14px;
             background:transparent;
             border:1px solid transparent;
             border-radius:4px; cursor:pointer;
             text-decoration:none; transition:all 0.2s;
-            font-size:0.78rem; color:#666; font-weight:700; line-height:1.4;
+            font-size:0.82rem; color:#999; font-weight:700; line-height:1.4;
             margin-bottom:2px;
         }
-        .ver-btn:hover { color:#c9a84c; border-color:rgba(201,168,76,0.3); background:rgba(201,168,76,0.04); }
-        .ver-btn.active { background:rgba(201,168,76,0.1); border-color:rgba(201,168,76,0.4); color:#f0d080; }
-        .ver-btn .vnum { color:rgba(201,168,76,0.45); font-size:0.68rem; margin-right:5px; }
+        .ver-btn:hover { color:#f0d080; border-color:rgba(201,168,76,0.35); background:rgba(201,168,76,0.05); }
+        .ver-btn.active { background:rgba(201,168,76,0.12); border-color:rgba(201,168,76,0.5); color:#f0d080; }
+        .ver-btn .vnum { color:#c9a84c; font-size:0.72rem; margin-right:6px; }
 
         /* 이미지 */
         .img-wrap { flex:0 0 860px; max-width:860px; }
@@ -88,12 +82,12 @@
             height:60vh; color:#555; font-size:0.9rem; width:100%;
         }
 
-        /* 우측 — 액션 */
+        /* 우측 액션 버튼 */
         .side-right {
-            position:sticky; top:105px;
+            position:sticky; top:80px;
             width:170px; flex-shrink:0;
             display:flex; flex-direction:column; gap:8px;
-            padding-left:10px;
+            margin-left:40px;
         }
         .action-btn {
             display:block; width:100%; padding:14px 8px;
@@ -110,6 +104,12 @@
             border:1px solid rgba(201,168,76,0.3);
             color:#c9a84c; font-size:0.8rem;
         }
+        .action-btn.fullscreen {
+            background:rgba(255,255,255,0.05);
+            border:1px solid rgba(255,255,255,0.15);
+            color:#bbb; font-size:0.8rem; margin-top:4px;
+        }
+        .action-btn.fullscreen strong { color:#fff; font-size:0.95rem; }
 
         /* 모바일 하단 */
         .mobile-bottom {
@@ -117,7 +117,7 @@
             position:fixed; bottom:0; left:0; right:0; z-index:200;
             background:rgba(6,6,6,0.98);
             border-top:1px solid rgba(201,168,76,0.2);
-            padding:10px 12px 10px;
+            padding:10px 12px;
         }
         .mob-row { display:flex; gap:7px; }
         .mob-btn {
@@ -147,9 +147,10 @@
         }
         .ver-dropdown.open { display:block; }
         .drop-label {
-            padding:12px 16px 8px; font-size:0.65rem; letter-spacing:3px;
-            color:rgba(201,168,76,0.5); font-weight:700;
-            border-bottom:1px solid rgba(255,255,255,0.05);
+            padding:12px 16px 10px; font-size:0.65rem; letter-spacing:3px;
+            color:rgba(201,168,76,0.6); font-weight:700;
+            border-bottom:1px solid rgba(255,255,255,0.06);
+            text-align:center;
         }
         .drop-item {
             display:block; padding:13px 16px;
@@ -159,10 +160,10 @@
         }
         .drop-item:last-child { border-bottom:none; }
         .drop-item:hover, .drop-item.active { background:rgba(201,168,76,0.1); color:#f0d080; }
-        .drop-item .dnum { color:rgba(201,168,76,0.45); margin-right:8px; font-size:0.72rem; }
+        .drop-item .dnum { color:#c9a84c; margin-right:8px; font-size:0.72rem; }
 
         @media (max-width:960px) {
-            .side-left, .side-right, .f11-bar { display:none; }
+            .side-left, .side-right { display:none; }
             .mobile-bottom { display:block; }
             .viewer { padding-top:60px; padding-bottom:75px; }
             .viewer-inner { padding:0; }
@@ -177,10 +178,6 @@
     <a href="index.html" class="top-logo">NAEGO DESIGN</a>
     <span class="top-title" id="topTitle"></span>
     <a href="index.html" class="back-btn">돌아가기</a>
-</div>
-
-<div class="f11-bar">
-    💡 <strong>F11</strong>을 누르시면 브라우저 전체화면으로 상세페이지를 감상하실 수 있습니다
 </div>
 
 <div class="viewer">
@@ -202,6 +199,7 @@
             <a href="index.html#order" class="action-btn gold">이 버전으로<br>상담 요청</a>
             <a href="https://smartstore.naver.com/pxq1/products/12976242217" target="_blank" class="action-btn green">네이버<br>스토어 주문</a>
             <a href="index.html" class="action-btn outline">← 홈으로</a>
+            <button onclick="toggleFullscreen()" class="action-btn fullscreen"><strong>F11</strong><br>전체화면 보기</button>
         </div>
 
     </div>
@@ -284,6 +282,14 @@
         document.title = `NAEGO — 버전 ${num} ${v.title}`;
         history.pushState(null, '', `?v=${num}`);
         window.scrollTo(0, 0);
+    }
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(e => console.log(e));
+        } else {
+            document.exitFullscreen();
+        }
     }
 
     function toggleDropdown() {
