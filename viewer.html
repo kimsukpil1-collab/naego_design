@@ -337,8 +337,13 @@
         const sideRight = document.querySelector('.side-right');
 
         const gap = 60; // 이미지와 패널 사이 여백
+        const imgRight = imgLeft + imgWidth; // 이미지 오른쪽 끝 위치
+
         sideLeft.style.left = Math.max(10, imgLeft - 230 - gap) + 'px';
-        sideRight.style.right = Math.max(10, vw - imgLeft - imgWidth - 170 - gap) + 'px';
+
+        // right 값 = 화면 오른쪽 끝에서 (이미지 오른쪽끝 + gap) 만큼 안쪽
+        const rightVal = Math.max(10, vw - imgRight - gap - 170);
+        sideRight.style.right = rightVal + 'px';
         sideRight.style.left = 'auto';
     }
 
