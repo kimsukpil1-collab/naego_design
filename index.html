@@ -330,6 +330,67 @@
         .g-card:hover { transform:translateY(-4px); border-color:rgba(201,168,76,0.3); }
         .g-card img { width:100%; height:auto; display:block; }
 
+        /* ── 가격표 ── */
+        #pricing {
+            padding: 120px 40px;
+            border-top: 1px solid rgba(201,168,76,0.08);
+            text-align: center;
+        }
+        .pricing-title {
+            font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 6px;
+            color: var(--gold); display: block; margin-bottom: 20px;
+        }
+        .pricing-h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 900; margin-bottom: 60px; line-height: 1.15;
+        }
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 20px; max-width: 960px; margin: 0 auto 60px;
+        }
+        .p-card {
+            background: #0d0d0d;
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 10px; padding: 36px 24px;
+            position: relative; transition: transform 0.3s, border-color 0.3s;
+            text-align: center;
+        }
+        .p-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.6); }
+        .p-card.best { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+        .p-badge {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(135deg, #7a5a1a, #c9a84c);
+            color: #000; font-size: 0.65rem; font-weight: 900;
+            padding: 4px 14px; border-radius: 20px; letter-spacing: 2px;
+        }
+        .p-name {
+            font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 900;
+            color: var(--text); margin-bottom: 14px;
+        }
+        .p-price {
+            font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 900;
+            color: var(--gold); margin-bottom: 8px;
+        }
+        .p-price span { font-size: 1rem; }
+        .p-sub { font-size: 0.8rem; color: #666; margin-bottom: 20px; }
+        .p-features { list-style: none; text-align: left; margin-bottom: 0; }
+        .p-features li {
+            font-size: 0.82rem; color: #aaa; padding: 7px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: flex-start; gap: 8px;
+        }
+        .p-features li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+        .p-consult {
+            font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 900;
+            color: var(--gold); padding: 20px;
+            border: 1px dashed rgba(201,168,76,0.3);
+            border-radius: 10px; margin-top: 10px;
+        }
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+        }
+
         /* ── MANIFESTO ── */
         .mani {
             padding:140px 40px; text-align:center;
@@ -707,6 +768,63 @@
 
 <!-- 갤러리 섹션 제거됨 -->
 
+<!-- 가격표 -->
+<section id="pricing">
+    <span class="pricing-title">PRICING</span>
+    <h2 class="pricing-h2">상세페이지 설계 패키지</h2>
+    <div class="pricing-grid">
+        <div class="p-card">
+            <div class="p-name">구조형</div>
+            <div class="p-price">490,000<span>원</span></div>
+            <div class="p-sub">15섹션 기준</div>
+            <ul class="p-features">
+                <li>전환 구조 설계</li>
+                <li>상세페이지 제작</li>
+                <li>15섹션 구성</li>
+            </ul>
+        </div>
+        <div class="p-card best">
+            <div class="p-badge">POPULAR</div>
+            <div class="p-name">설계형</div>
+            <div class="p-price">690,000<span>원</span></div>
+            <div class="p-sub">15섹션 기준</div>
+            <ul class="p-features">
+                <li>전환 구조 설계</li>
+                <li>상세페이지 제작</li>
+                <li>15섹션 구성</li>
+                <li>심층 전략 설계</li>
+            </ul>
+        </div>
+        <div class="p-card">
+            <div class="p-name">구조설계형</div>
+            <div class="p-price">990,000<span>원</span></div>
+            <div class="p-sub">15섹션 기준</div>
+            <ul class="p-features">
+                <li>전환 구조 설계</li>
+                <li>상세페이지 제작</li>
+                <li>15섹션 구성</li>
+                <li>심층 전략 설계</li>
+                <li>구조 + 설계 통합</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="pricing-grid">
+        <div class="p-card">
+            <div class="p-name">브랜딩 지속관리</div>
+            <div class="p-consult">년단위 계약 · 직접 미팅 협의</div>
+        </div>
+        <div class="p-card">
+            <div class="p-name">상품 지속업데이트 컨설팅</div>
+            <div class="p-consult">신제품 · 직접 미팅 협의</div>
+        </div>
+        <div class="p-card">
+            <div class="p-name">신제품 컨설팅</div>
+            <div class="p-consult">직접 미팅 협의</div>
+        </div>
+    </div>
+</section>
+
 <!-- MANIFESTO -->
 <div class="mani">
     <span class="mani-label">OUR PHILOSOPHY</span>
@@ -735,7 +853,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="791210140a0c1209101548391e14181015571a1614">[email&#160;protected]</a></span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
+                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbd0d2d6c8ced0cbd2d78afbdcd6dad2d795d8d4d6">[email&#160;protected]</a></span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -974,7 +1092,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d2624203e38263d24217c0d2a202c2421632e2220">[email&#160;protected]</a></span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
+                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce7e5e1fff9e7fce5e0bdccebe1ede5e0a2efe3e1">[email&#160;protected]</a></span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
