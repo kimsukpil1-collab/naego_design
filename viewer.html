@@ -46,11 +46,14 @@
             gap:0;
         }
 
-        /* 좌측 버전 목록 */
+        /* 좌측 버전 목록 — 화면 세로 중앙에 고정 */
         .side-left {
-            position:sticky; top:80px;
-            width:230px; flex-shrink:0;
-            margin-right:40px;
+            position:fixed;
+            top:50%;
+            transform:translateY(-50%);
+            left:calc(50% - 430px - 230px - 60px); /* 이미지 중심 기준으로 왼쪽 배치 */
+            width:230px;
+            z-index:50;
         }
         .side-label {
             font-size:0.82rem; letter-spacing:2px; color:#c9a84c;
@@ -75,19 +78,27 @@
         .ver-btn .vnum { color:#c9a84c; font-size:0.72rem; margin-right:6px; }
 
         /* 이미지 */
-        .img-wrap { flex:0 0 860px; max-width:860px; }
+        .img-wrap {
+            flex:0 0 860px; max-width:860px;
+            /* 양쪽 사이드패널 자리 확보를 위해 margin으로 띄움 */
+            margin-left: 290px;  /* 230px 패널 + 60px 여백 */
+            margin-right: 230px; /* 170px 패널 + 60px 여백 */
+        }
         .img-wrap img { width:100%; height:auto; display:block; }
         .loading {
             display:flex; justify-content:center; align-items:center;
             height:60vh; color:#555; font-size:0.9rem; width:100%;
         }
 
-        /* 우측 액션 버튼 */
+        /* 우측 액션 버튼 — 화면 세로 중앙에 고정 */
         .side-right {
-            position:sticky; top:80px;
-            width:170px; flex-shrink:0;
+            position:fixed;
+            top:50%;
+            transform:translateY(-50%);
+            right:calc(50% - 430px - 170px - 60px); /* 이미지 중심 기준으로 오른쪽 배치 */
+            width:170px;
             display:flex; flex-direction:column; gap:8px;
-            margin-left:40px;
+            z-index:50;
         }
         .action-btn {
             display:block; width:100%; padding:14px 8px;
@@ -167,8 +178,15 @@
             .mobile-bottom { display:block; }
             .viewer { padding-top:60px; padding-bottom:75px; }
             .viewer-inner { padding:0; }
-            .img-wrap { width:100%; max-width:100%; flex:none; }
+            .img-wrap { width:100%; max-width:100%; flex:none; margin-left:0; margin-right:0; }
             .top-title { font-size:0.7rem; }
+        }
+
+        /* 화면 너비가 좁을 때 사이드패널 위치 자동 조정 */
+        @media (max-width:1400px) and (min-width:961px) {
+            .side-left { left: 10px; }
+            .side-right { right: 10px; }
+            .img-wrap { margin-left: 0; margin-right: 0; }
         }
     </style>
 </head>
@@ -306,6 +324,26 @@
         document.getElementById('verDropdown').classList.remove('open');
         document.getElementById('dropOverlay').classList.remove('open');
     }
+
+    // 화면 크기에 따라 사이드패널 위치 동적 조정
+    function adjustSidePanels() {
+        const vw = window.innerWidth;
+        if (vw <= 960) return;
+
+        const imgWidth = 860;
+        const imgLeft = (vw - imgWidth) / 2;
+
+        const sideLeft = document.querySelector('.side-left');
+        const sideRight = document.querySelector('.side-right');
+
+        const gap = 60; // 이미지와 패널 사이 여백
+        sideLeft.style.left = Math.max(10, imgLeft - 230 - gap) + 'px';
+        sideRight.style.right = Math.max(10, vw - imgLeft - imgWidth - 170 - gap) + 'px';
+        sideRight.style.left = 'auto';
+    }
+
+    window.addEventListener('resize', adjustSidePanels);
+    adjustSidePanels();
 
     loadVersion(currentVer);
 </script>
