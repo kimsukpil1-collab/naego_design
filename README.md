@@ -1,1 +1,0 @@
-# naego_design
