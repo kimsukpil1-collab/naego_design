@@ -38,15 +38,12 @@
         }
         .gallery-item {
             overflow:hidden;
-            height:25000px; /* 각 이미지 높이 통일 — 위에서 잘림 */
             position:relative;
         }
         .gallery-item img {
             width:100%;
             height:auto;
             display:block;
-            position:absolute;
-            top:0; left:0;
         }
         .gallery-item-label {
             position:absolute;
@@ -70,10 +67,9 @@
             text-decoration:none;
         }
         .gallery-item:hover .gallery-item-link { opacity:1; }
-        .gallery-item-link span {
-            background:linear-gradient(135deg,#7a5a1a,#c9a84c);
-            color:#000; font-weight:900; font-size:0.78rem;
-            padding:8px 16px; border-radius:3px;
+        /* 모바일 갤러리 — 2열 */
+        @media (max-width:768px) {
+            .gallery-grid { grid-template-columns:repeat(2, 1fr); }
         }
 
         /* NAV */
@@ -721,12 +717,6 @@
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v02.jpg" alt="버전 02">
             <div class="gallery-item-label"><span class="g-vnum">V02</span><span class="g-vtitle">문제 해결 강조형</span></div>
             <a href="viewer.html?v=2" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
-        </div>
-
-        <div class="gallery-item">
-            <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v03.jpg" alt="버전 03">
-            <div class="gallery-item-label"><span class="g-vnum">V03</span><span class="g-vtitle">구조 설계형</span></div>
-            <a href="viewer.html?v=3" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
         </div>
 
         <div class="gallery-item">
