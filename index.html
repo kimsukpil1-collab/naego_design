@@ -19,9 +19,7 @@
         body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; overflow-x:hidden; }
 
         /* ── 갤러리 섹션 ── */
-        #gallery {
-            background:#060606;
-        }
+        #gallery { background:#060606; }
         .gallery-intro {
             text-align:center;
             padding:100px 40px 60px;
@@ -30,6 +28,19 @@
         .gallery-intro .sec-tag { margin-bottom:16px; }
         .gallery-intro .sec-h2 { margin-bottom:16px; }
         .gallery-intro .sec-desc { margin-bottom:0; }
+
+        /* 갤러리 진입 시 상단 고정 안내바 */
+        #gallery-notice {
+            display:none;
+            position:fixed; top:60px; left:0; right:0; z-index:900;
+            background:rgba(6,6,6,0.95);
+            border-bottom:1px solid rgba(201,168,76,0.25);
+            text-align:center;
+            padding:10px 20px;
+            font-size:0.78rem; color:#c9a84c; font-weight:700;
+            letter-spacing:1px;
+        }
+        #gallery-notice.visible { display:block; }
 
         .gallery-grid {
             display:grid;
@@ -45,31 +56,56 @@
             height:auto;
             display:block;
         }
-        .gallery-item-label {
-            position:absolute;
-            bottom:0; left:0; right:0;
-            padding:16px 18px;
-            background:linear-gradient(to top, rgba(6,6,6,0.92), transparent);
-            z-index:2;
-        }
-        .gallery-item-label .g-vnum {
-            font-family:'Cinzel',serif; font-size:0.7rem;
-            color:rgba(201,168,76,0.6); display:block; margin-bottom:4px;
-        }
-        .gallery-item-label .g-vtitle {
-            font-size:0.82rem; font-weight:700; color:#e8e0d0;
-        }
-        .gallery-item-link {
+
+        /* 각 이미지 중앙 — 카테고리 라벨 + 클릭 안내 */
+        .gallery-item-center {
             position:absolute; inset:0; z-index:3;
-            display:flex; align-items:flex-end; justify-content:flex-end;
-            padding:20px;
-            opacity:0; transition:opacity 0.3s;
+            display:flex; flex-direction:column;
+            align-items:center; justify-content:center;
+            gap:14px;
+            pointer-events:none;
+        }
+        .gallery-cat-box {
+            background:rgba(6,6,6,0.82);
+            border:1px solid rgba(201,168,76,0.5);
+            border-radius:4px;
+            padding:10px 20px;
+            text-align:center;
+        }
+        .gallery-cat-box .g-vnum {
+            font-family:'Cinzel',serif; font-size:0.65rem;
+            color:rgba(201,168,76,0.7); display:block; margin-bottom:5px;
+            letter-spacing:2px;
+        }
+        .gallery-cat-box .g-vtitle {
+            font-size:0.88rem; font-weight:900; color:#f0d080;
+            display:block; margin-bottom:4px;
+        }
+        .gallery-cat-box .g-vcat {
+            font-size:0.72rem; color:#aaa; font-weight:500;
+        }
+        .gallery-click-hint {
+            font-size:0.7rem; color:rgba(201,168,76,0.6);
+            letter-spacing:1px; font-weight:700;
+        }
+
+        /* 링크 — 전체 클릭 가능 */
+        .gallery-item-link {
+            position:absolute; inset:0; z-index:4;
             text-decoration:none;
         }
-        .gallery-item:hover .gallery-item-link { opacity:1; }
-        /* 모바일 갤러리 — 2열 */
+
+        /* 호버시 살짝 밝아짐 */
+        .gallery-item:hover img { opacity:0.85; transition:opacity 0.3s; }
+        .gallery-item:hover .gallery-cat-box {
+            border-color:rgba(201,168,76,0.9);
+            background:rgba(6,6,6,0.92);
+        }
+
+        /* 모바일 — 2열, v08 숨김 */
         @media (max-width:768px) {
             .gallery-grid { grid-template-columns:repeat(2, 1fr); }
+            .gallery-item.hide-mobile { display:none; }
         }
 
         /* NAV */
@@ -686,7 +722,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="610a080c12140a11080d5021060c00080d4f020e0c">[email&#160;protected]</a></span>
+                    <span class="email-addr">naego.design@gmail.com</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -699,96 +735,209 @@
 </section>
 
 <!-- ── 갤러리 — 15개 시안 감상 ── -->
+<div id="gallery-notice">▶ 각 버전을 클릭하면 전체 디자인을 확인하실 수 있습니다</div>
+
 <section id="gallery">
     <div class="gallery-intro">
         <span class="sec-tag">DESIGN PORTFOLIO</span>
         <h2 class="sec-h2">15가지 시안</h2>
-        <p class="sec-desc">각 버전을 클릭하면 전체 디자인을 확인할 수 있습니다.</p>
+        <p class="sec-desc">스크롤하며 감상하고, 클릭하면 전체 디자인을 확인할 수 있습니다.</p>
     </div>
     <div class="gallery-grid">
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v01.jpg" alt="버전 01">
-            <div class="gallery-item-label"><span class="g-vnum">V01</span><span class="g-vtitle">기본 전환 구조형</span></div>
-            <a href="viewer.html?v=1" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V01</span>
+                    <span class="g-vtitle">기본 전환 구조형</span>
+                    <span class="g-vcat">전환율 상승</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=1" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v02.jpg" alt="버전 02">
-            <div class="gallery-item-label"><span class="g-vnum">V02</span><span class="g-vtitle">문제 해결 강조형</span></div>
-            <a href="viewer.html?v=2" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V02</span>
+                    <span class="g-vtitle">문제 해결 강조형</span>
+                    <span class="g-vcat">고객 불안 제거</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=2" target="_blank" class="gallery-item-link"></a>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v03.jpg" alt="버전 03">
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V03</span>
+                    <span class="g-vtitle">구조 설계형</span>
+                    <span class="g-vcat">섹션 흐름 설계</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=3" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v04.jpg" alt="버전 04">
-            <div class="gallery-item-label"><span class="g-vnum">V04</span><span class="g-vtitle">신뢰 구축형</span></div>
-            <a href="viewer.html?v=4" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V04</span>
+                    <span class="g-vtitle">신뢰 구축형</span>
+                    <span class="g-vcat">숫자가 설득한다</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=4" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v05.jpg" alt="버전 05">
-            <div class="gallery-item-label"><span class="g-vnum">V05</span><span class="g-vtitle">구매 심리 중심형</span></div>
-            <a href="viewer.html?v=5" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V05</span>
+                    <span class="g-vtitle">구매 심리 중심형</span>
+                    <span class="g-vcat">감정 트리거 설계</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=5" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v06.jpg" alt="버전 06">
-            <div class="gallery-item-label"><span class="g-vnum">V06</span><span class="g-vtitle">고가 브랜드 전략형</span></div>
-            <a href="viewer.html?v=6" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V06</span>
+                    <span class="g-vtitle">고가 브랜드 전략형</span>
+                    <span class="g-vcat">가격 저항 무력화</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=6" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v07.jpg" alt="버전 07">
-            <div class="gallery-item-label"><span class="g-vnum">V07</span><span class="g-vtitle">모듈형 구조 설계</span></div>
-            <a href="viewer.html?v=7" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V07</span>
+                    <span class="g-vtitle">모듈형 구조 설계</span>
+                    <span class="g-vcat">조합이 전환율 결정</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=7" target="_blank" class="gallery-item-link"></a>
         </div>
 
-        <div class="gallery-item">
+        <div class="gallery-item hide-mobile">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v08.jpg" alt="버전 08">
-            <div class="gallery-item-label"><span class="g-vnum">V08</span><span class="g-vtitle">데이터 기반 설계형</span></div>
-            <a href="viewer.html?v=8" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V08</span>
+                    <span class="g-vtitle">데이터 기반 설계형</span>
+                    <span class="g-vcat">과학적 근거 강조</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=8" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v09.jpg" alt="버전 09">
-            <div class="gallery-item-label"><span class="g-vnum">V09</span><span class="g-vtitle">카테고리 지배형</span></div>
-            <a href="viewer.html?v=9" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V09</span>
+                    <span class="g-vtitle">카테고리 지배형</span>
+                    <span class="g-vcat">카테고리 장악</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=9" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v10.jpg" alt="버전 10">
-            <div class="gallery-item-label"><span class="g-vnum">V10</span><span class="g-vtitle">광고 연동 전환형</span></div>
-            <a href="viewer.html?v=10" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V10</span>
+                    <span class="g-vtitle">광고 연동 전환형</span>
+                    <span class="g-vcat">광고 맞춤 설계</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=10" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v11.jpg" alt="버전 11">
-            <div class="gallery-item-label"><span class="g-vnum">V11</span><span class="g-vtitle">브랜드 지배형</span></div>
-            <a href="viewer.html?v=11" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V11</span>
+                    <span class="g-vtitle">브랜드 지배형</span>
+                    <span class="g-vcat">브랜드 각인</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=11" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v12.jpg" alt="버전 12">
-            <div class="gallery-item-label"><span class="g-vnum">V12</span><span class="g-vtitle">경쟁사 무력화형</span></div>
-            <a href="viewer.html?v=12" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V12</span>
+                    <span class="g-vtitle">경쟁사 무력화형</span>
+                    <span class="g-vcat">비교 우위 설계</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=12" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v13.jpg" alt="버전 13">
-            <div class="gallery-item-label"><span class="g-vnum">V13</span><span class="g-vtitle">프리미엄 전용 전략형</span></div>
-            <a href="viewer.html?v=13" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V13</span>
+                    <span class="g-vtitle">프리미엄 전용 전략형</span>
+                    <span class="g-vcat">고급 포지셔닝</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=13" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v14.jpg" alt="버전 14">
-            <div class="gallery-item-label"><span class="g-vnum">V14</span><span class="g-vtitle">심리 해킹형</span></div>
-            <a href="viewer.html?v=14" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V14</span>
+                    <span class="g-vtitle">심리 해킹형</span>
+                    <span class="g-vcat">구매 충동 설계</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=14" target="_blank" class="gallery-item-link"></a>
         </div>
 
         <div class="gallery-item">
             <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v15.jpg" alt="버전 15">
-            <div class="gallery-item-label"><span class="g-vnum">V15</span><span class="g-vtitle">매출 시스템 구축형</span></div>
-            <a href="viewer.html?v=15" target="_blank" class="gallery-item-link"><span>전체 보기 →</span></a>
+            <div class="gallery-item-center">
+                <div class="gallery-cat-box">
+                    <span class="g-vnum">V15</span>
+                    <span class="g-vtitle">매출 시스템 구축형</span>
+                    <span class="g-vcat">매출 상승 구조</span>
+                </div>
+                <span class="gallery-click-hint">클릭하여 전체 디자인 보기 →</span>
+            </div>
+            <a href="viewer.html?v=15" target="_blank" class="gallery-item-link"></a>
         </div>
 
     </div>
@@ -813,7 +962,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr">kimsukpil1@gmail.com</span>
+                    <span class="email-addr">naego.design@gmail.com</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -823,7 +972,9 @@
             </div>
         </div>
     </div>
-</section> src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+</section>
+
+<script>
     // 스크롤 reveal
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((e, i) => {
@@ -833,6 +984,16 @@
         });
     }, { threshold: 0.08 });
     document.querySelectorAll('.vb').forEach(el => observer.observe(el));
+
+    // 갤러리 진입 시 상단 안내바 표시/숨김
+    const gallerySection = document.getElementById('gallery');
+    const galleryNotice = document.getElementById('gallery-notice');
+    const galleryObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            galleryNotice.classList.toggle('visible', e.isIntersecting);
+        });
+    }, { threshold: 0.01 });
+    galleryObserver.observe(gallerySection);
 
     // 주문서
     async function handleSubmit() {
@@ -888,7 +1049,16 @@
         }, 4000);
     }
     function copyEmail() {
-        const email = 'kimsukpil1@gmail.com';
-        navigator.clipboard.writeText(email).then(() => alert('이메일 주소가 복사되었습니다!')).catch(() => {
-            const t = document.createElement('textarea');
-            t.value =
+        const email = 'naego.design@gmail.com';
+        navigator.clipboard.writeText(email).then(() => {
+            const btn = event.target;
+            const orig = btn.textContent;
+            btn.textContent = '복사됨!';
+            setTimeout(() => btn.textContent = orig, 2000);
+        }).catch(() => {
+            alert('이메일: ' + email);
+        });
+    }
+</script>
+</body>
+</html>
