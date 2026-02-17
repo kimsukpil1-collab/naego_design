@@ -121,7 +121,7 @@
         }
         @keyframes shine { to { background-position:200% center; } }
         .nav-links { list-style:none; display:flex; gap:32px; align-items:center; }
-        .nav-links a { color:var(--muted); text-decoration:none; font-size:0.82rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.3s; }
+        .nav-links a { color:#fff; text-decoration:none; font-size:0.82rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.3s; border:1px solid rgba(255,255,255,0.3); padding:7px 10px; border-radius:3px; }
         .nav-links a:hover { color:var(--gold); }
         .nav-cta { padding:9px 10px; border:1px solid var(--gold) !important; color:var(--gold) !important; border-radius:3px; transition:all 0.3s !important; white-space:nowrap; }
         .nav-cta:hover { background:var(--gold) !important; color:#000 !important; }
@@ -144,13 +144,13 @@
         #hero {
             min-height:100vh; display:flex; flex-direction:column;
             justify-content:center; align-items:center; text-align:center;
-            padding:80px 40px 100px; position:relative; overflow:hidden;
+            padding:30px 40px 100px; position:relative; overflow:hidden;
         }
         #hero::before {
             content:''; position:absolute; inset:0;
             background:radial-gradient(ellipse 70% 55% at 50% 45%, rgba(201,168,76,0.07) 0%, transparent 70%);
         }
-        .hero-label {
+        .hero-label { display:none; /* 삭제됨 */ } .hero-label-REMOVED {
             font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:4px;
             color:var(--gold); margin-bottom:36px;
             opacity:0; animation:fadeUp 0.9s 0.1s forwards;
@@ -735,7 +735,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1876797d7f77367c7d6b717f76587f75797174367b7775">[email&#160;protected]</a></span>
+                    <span class="email-addr">kimsukpil1@gmail.com</span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -974,7 +974,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1bfb0b4b6beffb5b4a2b8b6bf91b6bcb0b8bdffb2bebc">[email&#160;protected]</a></span>
+                    <span class="email-addr">kimsukpil1@gmail.com</span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
