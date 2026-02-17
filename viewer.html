@@ -13,103 +13,161 @@
         .top-bar {
             position:fixed; top:0; left:0; right:0; z-index:100;
             display:flex; justify-content:space-between; align-items:center;
-            padding:14px 20px;
-            background:rgba(6,6,6,0.95);
-            backdrop-filter:blur(12px);
+            padding:12px 20px; gap:12px;
+            background:rgba(6,6,6,0.97);
             border-bottom:1px solid rgba(201,168,76,0.2);
         }
         .top-logo {
-            font-family:'Cinzel',serif; font-size:1rem; font-weight:900;
+            font-family:'Cinzel',serif; font-size:1.1rem; font-weight:900;
             background:linear-gradient(90deg,#7a5a1a,#f0d080,#c9a84c);
             background-size:200% auto;
             -webkit-background-clip:text; -webkit-text-fill-color:transparent;
             animation:shine 4s linear infinite;
-            text-decoration:none;
+            text-decoration:none; white-space:nowrap;
         }
         @keyframes shine { to { background-position:200% center; } }
-
         .top-title {
-            font-size:0.8rem; color:#c9a84c; font-weight:700;
-            letter-spacing:1px;
+            font-size:0.82rem; color:#c9a84c; font-weight:700;
+            white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+            flex:1; text-align:center;
         }
         .back-btn {
             padding:8px 16px;
             border:1px solid rgba(201,168,76,0.4);
             color:#c9a84c; font-size:0.78rem; font-weight:700;
-            border-radius:3px; text-decoration:none;
-            transition:all 0.2s;
+            border-radius:3px; text-decoration:none; white-space:nowrap;
         }
-        .back-btn:hover { background:rgba(201,168,76,0.1); }
 
-        /* 버전 선택 탭 */
-        .ver-tabs {
-            position:fixed; top:53px; left:0; right:0; z-index:99;
-            display:flex; overflow-x:auto; gap:4px;
-            padding:10px 16px;
-            background:rgba(6,6,6,0.95);
+        /* F11 안내 — PC만 */
+        .f11-bar {
+            position:fixed; top:49px; left:0; right:0; z-index:99;
+            background:rgba(201,168,76,0.06);
+            border-bottom:1px solid rgba(201,168,76,0.12);
+            padding:7px 20px; text-align:center;
+            font-size:0.75rem; color:rgba(201,168,76,0.65); letter-spacing:0.3px;
+        }
+        .f11-bar strong { color:#c9a84c; }
+
+        /* PC 레이아웃 */
+        .viewer { padding-top:95px; min-height:100vh; }
+        .viewer-inner {
+            display:flex; justify-content:center; align-items:flex-start;
+            max-width:1400px; margin:0 auto; padding:20px 10px;
+        }
+
+        /* 좌측 — 버전 목록 */
+        .side-left {
+            position:sticky; top:105px;
+            width:210px; flex-shrink:0;
+            padding-right:10px;
+        }
+        .side-label {
+            font-size:0.62rem; letter-spacing:3px; color:rgba(201,168,76,0.45);
+            font-weight:700; padding:0 8px 10px;
             border-bottom:1px solid rgba(201,168,76,0.1);
-            scrollbar-width:none;
+            margin-bottom:6px; display:block;
         }
-        .ver-tabs::-webkit-scrollbar { display:none; }
-        .ver-tab {
-            padding:6px 14px; border-radius:3px;
-            font-size:0.75rem; font-weight:700;
-            border:1px solid rgba(201,168,76,0.2);
-            color:#666; cursor:pointer; white-space:nowrap;
-            transition:all 0.2s; background:transparent;
+        .ver-btn {
+            display:block; padding:9px 12px;
+            background:transparent;
+            border:1px solid transparent;
+            border-radius:4px; cursor:pointer;
+            text-decoration:none; transition:all 0.2s;
+            font-size:0.78rem; color:#666; font-weight:700; line-height:1.4;
+            margin-bottom:2px;
         }
-        .ver-tab:hover { color:#c9a84c; border-color:rgba(201,168,76,0.5); }
-        .ver-tab.active {
-            background:linear-gradient(135deg,#7a5a1a,#c9a84c);
-            color:#000; border-color:transparent;
-        }
+        .ver-btn:hover { color:#c9a84c; border-color:rgba(201,168,76,0.3); background:rgba(201,168,76,0.04); }
+        .ver-btn.active { background:rgba(201,168,76,0.1); border-color:rgba(201,168,76,0.4); color:#f0d080; }
+        .ver-btn .vnum { color:rgba(201,168,76,0.45); font-size:0.68rem; margin-right:5px; }
 
-        /* 이미지 뷰어 */
-        .viewer {
-            padding-top:110px;
-            min-height:100vh;
-        }
-        .img-wrap {
-            width:100%;
-            overflow-x:auto;
-            overflow-y:auto;
-            display:flex;
-            justify-content:center;
-        }
-        .img-wrap img {
-            width:100%;
-            max-width:860px;
-            height:auto;
-            display:block;
-        }
-
-        /* 하단 상담 버튼 */
-        .bottom-bar {
-            position:fixed; bottom:0; left:0; right:0;
-            padding:14px 20px;
-            background:rgba(6,6,6,0.97);
-            border-top:1px solid rgba(201,168,76,0.2);
-            display:flex; gap:10px;
-        }
-        .btn-consult {
-            flex:1; padding:14px;
-            background:linear-gradient(135deg,#7a5a1a,#c9a84c);
-            color:#000; font-weight:900; font-size:0.9rem;
-            border:none; border-radius:6px; cursor:pointer;
-            text-align:center; text-decoration:none; display:block;
-        }
-        .btn-order {
-            flex:1; padding:14px;
-            background:linear-gradient(135deg,#03c75a,#029648);
-            color:#fff; font-weight:900; font-size:0.9rem;
-            border:none; border-radius:6px; cursor:pointer;
-            text-align:center; text-decoration:none; display:block;
-        }
-
-        /* 로딩 */
+        /* 이미지 */
+        .img-wrap { flex:0 0 860px; max-width:860px; }
+        .img-wrap img { width:100%; height:auto; display:block; }
         .loading {
             display:flex; justify-content:center; align-items:center;
-            height:60vh; color:#555; font-size:0.9rem;
+            height:60vh; color:#555; font-size:0.9rem; width:100%;
+        }
+
+        /* 우측 — 액션 */
+        .side-right {
+            position:sticky; top:105px;
+            width:170px; flex-shrink:0;
+            display:flex; flex-direction:column; gap:8px;
+            padding-left:10px;
+        }
+        .action-btn {
+            display:block; width:100%; padding:14px 8px;
+            font-weight:900; font-size:0.85rem;
+            border:none; border-radius:6px; cursor:pointer;
+            text-align:center; text-decoration:none;
+            line-height:1.5; transition:opacity 0.2s;
+        }
+        .action-btn:hover { opacity:0.85; }
+        .action-btn.gold { background:linear-gradient(135deg,#7a5a1a,#c9a84c); color:#000; }
+        .action-btn.green { background:linear-gradient(135deg,#03c75a,#029648); color:#fff; }
+        .action-btn.outline {
+            background:transparent;
+            border:1px solid rgba(201,168,76,0.3);
+            color:#c9a84c; font-size:0.8rem;
+        }
+
+        /* 모바일 하단 */
+        .mobile-bottom {
+            display:none;
+            position:fixed; bottom:0; left:0; right:0; z-index:200;
+            background:rgba(6,6,6,0.98);
+            border-top:1px solid rgba(201,168,76,0.2);
+            padding:10px 12px 10px;
+        }
+        .mob-row { display:flex; gap:7px; }
+        .mob-btn {
+            flex:1; padding:13px 4px;
+            font-weight:900; font-size:0.78rem;
+            border:none; border-radius:6px; cursor:pointer;
+            text-align:center; text-decoration:none; display:block;
+            -webkit-tap-highlight-color:transparent;
+        }
+        .mob-btn.gold { background:linear-gradient(135deg,#7a5a1a,#c9a84c); color:#000; }
+        .mob-btn.green { background:linear-gradient(135deg,#03c75a,#029648); color:#fff; }
+        .mob-btn.ver { background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.35); color:#c9a84c; }
+
+        /* 드롭다운 */
+        .drop-overlay {
+            display:none; position:fixed; inset:0; z-index:250;
+            background:rgba(0,0,0,0.6);
+        }
+        .drop-overlay.open { display:block; }
+        .ver-dropdown {
+            display:none;
+            position:fixed; bottom:80px; left:10px; right:10px; z-index:300;
+            background:#111;
+            border:1px solid rgba(201,168,76,0.3);
+            border-radius:10px; overflow:hidden;
+            max-height:58vh; overflow-y:auto;
+        }
+        .ver-dropdown.open { display:block; }
+        .drop-label {
+            padding:12px 16px 8px; font-size:0.65rem; letter-spacing:3px;
+            color:rgba(201,168,76,0.5); font-weight:700;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+        }
+        .drop-item {
+            display:block; padding:13px 16px;
+            font-size:0.88rem; color:#999; font-weight:700;
+            border-bottom:1px solid rgba(255,255,255,0.04);
+            cursor:pointer; text-decoration:none; transition:background 0.15s;
+        }
+        .drop-item:last-child { border-bottom:none; }
+        .drop-item:hover, .drop-item.active { background:rgba(201,168,76,0.1); color:#f0d080; }
+        .drop-item .dnum { color:rgba(201,168,76,0.45); margin-right:8px; font-size:0.72rem; }
+
+        @media (max-width:960px) {
+            .side-left, .side-right, .f11-bar { display:none; }
+            .mobile-bottom { display:block; }
+            .viewer { padding-top:60px; padding-bottom:75px; }
+            .viewer-inner { padding:0; }
+            .img-wrap { width:100%; max-width:100%; flex:none; }
+            .top-title { font-size:0.7rem; }
         }
     </style>
 </head>
@@ -117,60 +175,94 @@
 
 <div class="top-bar">
     <a href="index.html" class="top-logo">NAEGO DESIGN</a>
-    <span class="top-title" id="topTitle">버전 1</span>
-    <a href="index.html" class="back-btn">← 돌아가기</a>
+    <span class="top-title" id="topTitle"></span>
+    <a href="index.html" class="back-btn">돌아가기</a>
 </div>
 
-<div class="ver-tabs" id="verTabs">
-    <!-- JS로 생성 -->
+<div class="f11-bar">
+    💡 <strong>F11</strong>을 누르시면 브라우저 전체화면으로 상세페이지를 감상하실 수 있습니다
 </div>
 
 <div class="viewer">
-    <div class="img-wrap">
-        <div class="loading" id="loading">이미지 로딩 중...</div>
-        <img id="mainImg" src="" alt="시안" style="display:none;"
-             onload="document.getElementById('loading').style.display='none'; this.style.display='block';"
-             onerror="document.getElementById('loading').innerHTML='이미지를 불러올 수 없습니다.';">
+    <div class="viewer-inner">
+
+        <div class="side-left">
+            <span class="side-label">다른 버전 보기</span>
+            <div id="verList"></div>
+        </div>
+
+        <div class="img-wrap">
+            <div class="loading" id="loading">이미지 로딩 중...</div>
+            <img id="mainImg" src="" alt="시안" style="display:none;"
+                 onload="document.getElementById('loading').style.display='none'; this.style.display='block';"
+                 onerror="document.getElementById('loading').innerHTML='이미지를 불러올 수 없습니다.';">
+        </div>
+
+        <div class="side-right">
+            <a href="index.html#order" class="action-btn gold">이 버전으로<br>상담 요청</a>
+            <a href="https://smartstore.naver.com/pxq1/products/12976242217" target="_blank" class="action-btn green">네이버<br>스토어 주문</a>
+            <a href="index.html" class="action-btn outline">← 홈으로</a>
+        </div>
+
     </div>
 </div>
 
-<div class="bottom-bar">
-    <a href="index.html#order" class="btn-consult">이 버전으로 상담 요청</a>
-    <a href="https://smartstore.naver.com/pxq1/products/12976242217" target="_blank" class="btn-order">네이버 스토어 주문</a>
+<div class="mobile-bottom">
+    <div class="mob-row">
+        <a href="index.html#order" class="mob-btn gold">상담 요청</a>
+        <button class="mob-btn ver" onclick="toggleDropdown()">다른 버전 ▲</button>
+        <a href="https://smartstore.naver.com/pxq1/products/12976242217" target="_blank" class="mob-btn green">네이버 주문</a>
+    </div>
+</div>
+
+<div class="drop-overlay" id="dropOverlay" onclick="closeDropdown()"></div>
+<div class="ver-dropdown" id="verDropdown">
+    <div class="drop-label">다른 버전 보기</div>
 </div>
 
 <script>
     const BASE = "https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/";
     const VERSIONS = [
-        { num:1,  title:"기본 전환 구조형" },
-        { num:2,  title:"문제 해결 강조형" },
-        { num:3,  title:"구조 설계형" },
-        { num:4,  title:"신뢰 구축형" },
-        { num:5,  title:"구매 심리 중심형" },
-        { num:6,  title:"고가 브랜드 전략형" },
-        { num:7,  title:"모듈형 구조 설계" },
-        { num:8,  title:"데이터 기반 설계형" },
-        { num:9,  title:"카테고리 지배형" },
-        { num:10, title:"광고 연동 전환형" },
-        { num:11, title:"브랜드 지배형" },
-        { num:12, title:"경쟁사 무력화형" },
-        { num:13, title:"프리미엄 전용 전략형" },
-        { num:14, title:"심리 해킹형" },
-        { num:15, title:"매출 시스템 구축형" },
+        {num:1,  title:"기본 전환 구조형"},
+        {num:2,  title:"문제 해결 강조형"},
+        {num:3,  title:"구조 설계형"},
+        {num:4,  title:"신뢰 구축형"},
+        {num:5,  title:"구매 심리 중심형"},
+        {num:6,  title:"고가 브랜드 전략형"},
+        {num:7,  title:"모듈형 구조 설계"},
+        {num:8,  title:"데이터 기반 설계형"},
+        {num:9,  title:"카테고리 지배형"},
+        {num:10, title:"광고 연동 전환형"},
+        {num:11, title:"브랜드 지배형"},
+        {num:12, title:"경쟁사 무력화형"},
+        {num:13, title:"프리미엄 전용 전략형"},
+        {num:14, title:"심리 해킹형"},
+        {num:15, title:"매출 시스템 구축형"},
     ];
 
-    // URL에서 버전 번호 가져오기
     const params = new URLSearchParams(window.location.search);
     let currentVer = parseInt(params.get('v')) || 1;
 
-    // 탭 생성
-    const tabsEl = document.getElementById('verTabs');
+    // PC 좌측 목록
+    const verList = document.getElementById('verList');
     VERSIONS.forEach(v => {
-        const btn = document.createElement('button');
-        btn.className = 'ver-tab' + (v.num === currentVer ? ' active' : '');
-        btn.textContent = `V${String(v.num).padStart(2,'0')}`;
-        btn.onclick = () => loadVersion(v.num);
-        tabsEl.appendChild(btn);
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'ver-btn' + (v.num === currentVer ? ' active' : '');
+        a.innerHTML = `<span class="vnum">V${String(v.num).padStart(2,'0')}</span>${v.title} 보기`;
+        a.onclick = e => { e.preventDefault(); loadVersion(v.num); };
+        verList.appendChild(a);
+    });
+
+    // 모바일 드롭다운
+    const dropdown = document.getElementById('verDropdown');
+    VERSIONS.forEach(v => {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'drop-item' + (v.num === currentVer ? ' active' : '');
+        a.innerHTML = `<span class="dnum">V${String(v.num).padStart(2,'0')}</span>${v.title}`;
+        a.onclick = e => { e.preventDefault(); loadVersion(v.num); closeDropdown(); };
+        dropdown.appendChild(a);
     });
 
     function loadVersion(num) {
@@ -178,16 +270,9 @@
         const v = VERSIONS.find(v => v.num === num);
         const file = `h02_v${String(num).padStart(2,'0')}.jpg`;
 
-        // 탭 활성화
-        document.querySelectorAll('.ver-tab').forEach((t,i) => {
-            t.classList.toggle('active', VERSIONS[i].num === num);
-        });
+        document.querySelectorAll('.ver-btn').forEach((el,i) => el.classList.toggle('active', VERSIONS[i].num === num));
+        document.querySelectorAll('.drop-item').forEach((el,i) => el.classList.toggle('active', VERSIONS[i].num === num));
 
-        // 활성 탭 스크롤
-        const activeTab = tabsEl.children[num-1];
-        activeTab.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
-
-        // 이미지 로드
         const img = document.getElementById('mainImg');
         const loading = document.getElementById('loading');
         img.style.display = 'none';
@@ -195,18 +280,27 @@
         loading.innerHTML = '이미지 로딩 중...';
         img.src = BASE + file;
 
-        // 제목 업데이트
         document.getElementById('topTitle').textContent = `버전 ${num} — ${v.title}`;
-        document.title = `NAEGO DESIGN — 버전 ${num} ${v.title}`;
-
-        // URL 업데이트
+        document.title = `NAEGO — 버전 ${num} ${v.title}`;
         history.pushState(null, '', `?v=${num}`);
-
-        // 맨 위로
         window.scrollTo(0, 0);
     }
 
-    // 초기 로드
+    function toggleDropdown() {
+        const dd = document.getElementById('verDropdown');
+        const ov = document.getElementById('dropOverlay');
+        if (dd.classList.contains('open')) { closeDropdown(); return; }
+        dd.classList.add('open');
+        ov.classList.add('open');
+        const active = dd.querySelector('.active');
+        if (active) setTimeout(() => active.scrollIntoView({block:'center'}), 50);
+    }
+
+    function closeDropdown() {
+        document.getElementById('verDropdown').classList.remove('open');
+        document.getElementById('dropOverlay').classList.remove('open');
+    }
+
     loadVersion(currentVer);
 </script>
 </body>
