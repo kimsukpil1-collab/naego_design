@@ -18,6 +18,32 @@
         html { scroll-behavior:smooth; }
         body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; overflow-x:hidden; }
 
+        /* 배경 이미지 그리드 */
+        #bg-grid {
+            position:fixed; inset:0; z-index:0;
+            display:grid;
+            grid-template-columns:repeat(5, 20vw);
+            grid-template-rows:repeat(3, auto);
+            pointer-events:none;
+            overflow:hidden;
+        }
+        #bg-grid img {
+            width:20vw;
+            height:auto;
+            display:block;
+            opacity:0.10;
+            filter:grayscale(20%);
+        }
+        /* 배경 위 오버레이 — 가독성 보호 */
+        #bg-overlay {
+            position:fixed; inset:0; z-index:1;
+            background:rgba(6,6,6,0.50);
+            pointer-events:none;
+        }
+        /* 모든 콘텐츠가 배경 위에 오도록 */
+        nav { z-index:1000; }
+        section, .marquee-wrap, .mani { position:relative; z-index:2; }
+
         /* NAV */
         nav {
             position:fixed; top:0; left:0; right:0; z-index:1000;
@@ -367,12 +393,32 @@
 </head>
 <body>
 
+<!-- 배경 이미지 그리드 (5열 × 3행 = 15개) -->
+<div id="bg-grid">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v01.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v02.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v03.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v04.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v05.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v06.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v07.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v08.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v09.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v10.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v11.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v12.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v13.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v14.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/kimsukpil1-collab/naego_design/main/h02_v15.jpg" alt="">
+</div>
+<div id="bg-overlay"></div>
+
 <!-- NAV -->
 <nav>
     <a href="#hero" class="logo">NAEGO DESIGN</a>
     <ul class="nav-links">
         <li><a href="#versions">설계 구조</a></li>
-        <li><a href="#gallery">시안</a></li>
+        <li><a href="viewer.html?v=1">시안</a></li>
         <li><a href="#order" class="nav-cta">상담요청</a></li>
     </ul>
 </nav>
@@ -632,7 +678,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr">kimsukpil1@gmail.com</span>
+                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="610a080c12140a11080d5021060c00080d4f020e0c">[email&#160;protected]</a></span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -644,7 +690,7 @@
     </div>
 </section>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // 스크롤 reveal
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((e, i) => {
@@ -688,11 +734,4 @@
         const email = 'kimsukpil1@gmail.com';
         navigator.clipboard.writeText(email).then(() => alert('이메일 주소가 복사되었습니다!')).catch(() => {
             const t = document.createElement('textarea');
-            t.value = email; document.body.appendChild(t); t.select();
-            document.execCommand('copy'); document.body.removeChild(t);
-            alert('이메일 주소가 복사되었습니다!');
-        });
-    }
-</script>
-</body>
-</html>
+            t.value =
