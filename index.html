@@ -29,19 +29,6 @@
         .gallery-intro .sec-h2 { margin-bottom:16px; }
         .gallery-intro .sec-desc { margin-bottom:0; }
 
-        /* 갤러리 진입 시 상단 고정 안내바 */
-        #gallery-notice {
-            display:none;
-            position:fixed; top:60px; left:0; right:0; z-index:900;
-            background:rgba(6,6,6,0.95);
-            border-bottom:1px solid rgba(201,168,76,0.25);
-            text-align:center;
-            padding:10px 20px;
-            font-size:0.78rem; color:#c9a84c; font-weight:700;
-            letter-spacing:1px;
-        }
-        #gallery-notice.visible { display:block; }
-
         .gallery-grid {
             display:grid;
             grid-template-columns:repeat(3, 1fr);
@@ -111,7 +98,7 @@
 
         /* 모바일 — 2열, v08 숨김 */
         @media (max-width:768px) {
-            .gallery-grid { grid-template-columns:repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns:repeat(2, 1fr) !important; }
             .gallery-item.hide-mobile { display:none; }
         }
 
@@ -731,7 +718,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr">naego.design@gmail.com</span>
+                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1876797d7f77367c7d6b717f76587f75797174367b7775">[email&#160;protected]</a></span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -744,7 +731,6 @@
 </section>
 
 <!-- ── 갤러리 — 15개 시안 감상 ── -->
-<div id="gallery-notice">▶ 각 버전을 클릭하면 전체 디자인을 확인하실 수 있습니다</div>
 
 <section id="gallery">
     <div class="gallery-intro">
@@ -971,7 +957,7 @@
             <div class="email-row">
                 <div class="email-top">
                     <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr">naego.design@gmail.com</span>
+                    <span class="email-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1bfb0b4b6beffb5b4a2b8b6bf91b6bcb0b8bdffb2bebc">[email&#160;protected]</a></span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -983,7 +969,7 @@
     </div>
 </section>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // 스크롤 reveal — 기본 visible, 스크롤 진입 시 애니메이션
     document.querySelectorAll('.vb').forEach(el => el.classList.add('hidden-anim'));
     const observer = new IntersectionObserver((entries) => {
@@ -1004,21 +990,6 @@
             }
         });
     });
-
-    // 갤러리 진입 시 상단 안내바 표시/숨김 — scroll 기반으로 확실하게
-    const gallerySection = document.getElementById('gallery');
-    const galleryNotice = document.getElementById('gallery-notice');
-    function updateGalleryNotice() {
-        const rect = gallerySection.getBoundingClientRect();
-        // 갤러리 섹션이 화면에 걸쳐있으면 표시
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            galleryNotice.classList.add('visible');
-        } else {
-            galleryNotice.classList.remove('visible');
-        }
-    }
-    window.addEventListener('scroll', updateGalleryNotice, { passive: true });
-    updateGalleryNotice(); // 초기 실행
 
     // 주문서
     async function handleSubmit() {
@@ -1074,16 +1045,4 @@
         }, 4000);
     }
     function copyEmail() {
-        const email = 'naego.design@gmail.com';
-        navigator.clipboard.writeText(email).then(() => {
-            const btn = event.target;
-            const orig = btn.textContent;
-            btn.textContent = '복사됨!';
-            setTimeout(() => btn.textContent = orig, 2000);
-        }).catch(() => {
-            alert('이메일: ' + email);
-        });
-    }
-</script>
-</body>
-</html>
+        const email = 'naego.design@gmail.
