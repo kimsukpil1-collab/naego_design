@@ -492,9 +492,12 @@
             border-radius:6px; padding:14px 16px; margin-bottom:28px;
             display:flex; justify-content:space-between; align-items:center; gap:10px;
         }
-        .email-top { display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
+        .email-top { display:flex; flex-direction:column; gap:4px; flex:1; min-width:0; }
+        .email-top-row { display:flex; align-items:center; gap:12px; }
         .email-lbl { font-size:0.75rem; color:var(--muted); white-space:nowrap; font-weight:600; }
-        .email-addr { font-size:0.9rem; color:var(--gold); font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .email-addr { font-size:0.95rem; color:#fff; font-weight:700; white-space:nowrap; letter-spacing:0.5px; }
+        .email-addr a { color:#fff; text-decoration:none; }
+        .email-hint { font-size:0.72rem; color:#888; font-weight:400; margin-top:2px; }
         .btn-copy {
             padding:8px 14px; background:rgba(201,168,76,0.08);
             border:1px solid rgba(201,168,76,0.25); color:var(--gold);
@@ -522,9 +525,21 @@
             .btn-gold, .btn-outline { width:100%; text-align:center; padding:14px 20px; font-size:0.88rem; }
             .mani { padding:80px 24px; }
         }
+        /* 토스트 알림 */
+        .toast {
+            position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+            background:#1a1a1a; border:1px solid rgba(201,168,76,0.5);
+            color:#f0d080; padding:12px 24px; border-radius:6px;
+            font-size:0.88rem; font-weight:700; z-index:9999;
+            opacity:0; pointer-events:none;
+            transition:opacity 0.3s;
+            white-space:nowrap;
+        }
+        .toast.show { opacity:1; }
     </style>
 </head>
 <body>
+<div class="toast" id="toast">📋 이메일 주소가 복사되었습니다</div>
 
 <!-- NAV -->
 <nav>
@@ -852,8 +867,11 @@
             <a href="https://smartstore.naver.com/pxq1/products/12976242217" target="_blank" class="btn-naver">네이버 스토어 주문</a>
             <div class="email-row">
                 <div class="email-top">
-                    <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr"><a href="mailto:kimsukpil1@gmail.com">kimsukpil1@gmail.com</a></span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
+                    <div class="email-top-row">
+                        <span class="email-lbl">첨부파일</span>
+                        <span class="email-addr"><a href="mailto:kimsukpil1@gmail.com">kimsukpil1@gmail.com</a></span>
+                    </div>
+                    <span class="email-hint">첨부파일은 이메일로 보내 주세요</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -1145,8 +1163,11 @@
             <a href="https://smartstore.naver.com/pxq1/products/12976242217" target="_blank" class="btn-naver">네이버 스토어 주문</a>
             <div class="email-row">
                 <div class="email-top">
-                    <span class="email-lbl">첨부파일</span>
-                    <span class="email-addr"><a href="mailto:kimsukpil1@gmail.com">kimsukpil1@gmail.com</a></span><span style="display:block;font-size:0.72rem;color:#888;margin-top:4px;font-weight:400;">첨부파일은 이메일로 보내 주세요</span>
+                    <div class="email-top-row">
+                        <span class="email-lbl">첨부파일</span>
+                        <span class="email-addr"><a href="mailto:kimsukpil1@gmail.com">kimsukpil1@gmail.com</a></span>
+                    </div>
+                    <span class="email-hint">첨부파일은 이메일로 보내 주세요</span>
                 </div>
                 <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
             </div>
@@ -1179,6 +1200,23 @@
             }
         });
     });
+
+    // 이메일 복사
+    function copyEmail() {
+        const email = 'kimsukpil1@gmail.com';
+        navigator.clipboard.writeText(email).then(() => {
+            showToast('📋 이메일 주소가 복사되었습니다');
+        }).catch(() => {
+            showToast('❌ 복사에 실패했습니다. 직접 선택해 주세요');
+        });
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
 
     // 주문서
     async function handleSubmit() {
