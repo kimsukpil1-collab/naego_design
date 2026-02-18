@@ -492,19 +492,23 @@
             border-radius:6px; padding:14px 16px; margin-bottom:28px;
             display:flex; justify-content:space-between; align-items:center; gap:10px;
         }
-        .email-top { display:flex; flex-direction:column; gap:4px; flex:1; min-width:0; }
-        .email-top-row { display:flex; align-items:center; gap:12px; }
-        .email-lbl { font-size:0.75rem; color:var(--muted); white-space:nowrap; font-weight:600; }
-        .email-addr { font-size:0.95rem; color:#fff; font-weight:700; white-space:nowrap; letter-spacing:0.5px; }
-        .email-addr a { color:#fff; text-decoration:none; }
+        .email-top { display:flex; flex-direction:column; gap:4px; flex:1; min-width:0; overflow:hidden; }
+        .email-top-row { display:flex; align-items:center; gap:8px; }
+        .email-lbl { font-size:0.75rem; color:var(--muted); white-space:nowrap; font-weight:600; flex-shrink:0; }
+        .email-addr { font-size:0.9rem; color:#fff; font-weight:700; white-space:nowrap; letter-spacing:0.3px; overflow:hidden; text-overflow:ellipsis; }
         .email-hint { font-size:0.72rem; color:#888; font-weight:400; margin-top:2px; }
         .btn-copy {
             padding:8px 14px; background:rgba(201,168,76,0.08);
             border:1px solid rgba(201,168,76,0.25); color:var(--gold);
             font-size:0.78rem; font-weight:700; border-radius:4px;
             cursor:pointer; transition:all 0.2s; white-space:nowrap; flex-shrink:0;
+            margin-left:8px;
         }
-        .btn-copy:hover { background:rgba(201,168,76,0.15); }
+        .btn-copy:hover, .btn-copy:active { background:rgba(201,168,76,0.25); }
+        @media (max-width:500px) {
+            .email-row { flex-direction:column; align-items:flex-start; gap:10px; }
+            .btn-copy { width:100%; text-align:center; margin-left:0; padding:11px 14px; }
+        }
 
         .ord-sig { border-top:1px solid rgba(201,168,76,0.1); padding-top:24px; text-align:center; }
         .ord-sig-name { font-family:'Great Vibes',cursive; font-size:2.2rem; color:var(--text); display:block; }
@@ -1204,20 +1208,30 @@
     // 이메일 복사
     function copyEmail() {
         const email = 'kimsukpil1@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(() => {
+                showToast('📋 이메일 주소가 복사되었습니다');
+            }).catch(() => fallbackCopy(email));
+        } else {
+            fallbackCopy(email);
+        }
+    }
+    function fallbackCopy(text) {
+        const el = document.createElement('textarea');
+        el.value = text;
+        el.setAttribute('readonly', '');
+        el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+        document.body.appendChild(el);
+        el.focus();
+        el.select();
+        el.setSelectionRange(0, 99999);
         try {
-            const el = document.createElement('textarea');
-            el.value = email;
-            el.style.position = 'fixed';
-            el.style.opacity = '0';
-            document.body.appendChild(el);
-            el.focus();
-            el.select();
             document.execCommand('copy');
-            document.body.removeChild(el);
             showToast('📋 이메일 주소가 복사되었습니다');
         } catch(e) {
             showToast('❌ 복사에 실패했습니다. 직접 선택해 주세요');
         }
+        document.body.removeChild(el);
     }
 
     function showToast(msg) {
