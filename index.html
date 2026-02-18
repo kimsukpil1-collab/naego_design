@@ -530,20 +530,29 @@
             .mani { padding:80px 24px; }
         }
         /* 토스트 알림 */
-        .toast {
-            position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+        .copy-tooltip {
+            position:absolute; bottom:calc(100% + 8px); right:0;
             background:#1a1a1a; border:1px solid rgba(201,168,76,0.5);
-            color:#f0d080; padding:12px 24px; border-radius:6px;
-            font-size:0.88rem; font-weight:700; z-index:9999;
+            color:#f0d080; padding:7px 14px; border-radius:5px;
+            font-size:0.78rem; font-weight:700; z-index:9999;
             opacity:0; pointer-events:none;
-            transition:opacity 0.3s;
+            transition:opacity 0.25s;
             white-space:nowrap;
         }
-        .toast.show { opacity:1; }
+        .copy-tooltip::after {
+            content:''; position:absolute; top:100%; right:16px;
+            border:6px solid transparent;
+            border-top-color:rgba(201,168,76,0.5);
+        }
+        .copy-tooltip.show { opacity:1; }
+        .btn-copy-wrap { position:relative; flex-shrink:0; margin-left:8px; }
+        @media (max-width:500px) {
+            .btn-copy-wrap { width:100%; margin-left:0; }
+            .copy-tooltip { right:0; left:auto; }
+        }
     </style>
 </head>
 <body>
-<div class="toast" id="toast">📋 이메일 주소가 복사되었습니다</div>
 
 <!-- NAV -->
 <nav>
@@ -877,7 +886,7 @@
                     </div>
                     <span class="email-hint">첨부파일은 이메일로 보내 주세요</span>
                 </div>
-                <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
+                <div class="btn-copy-wrap"><div class="copy-tooltip" id="copyTooltip2">📋 복사되었습니다</div><button class="btn-copy" onclick="copyEmail(this)">주소 복사</button></div>
             </div>
             <div class="ord-sig">
                 <span class="ord-sig-name">Sukbeom Kim</span>
@@ -1173,7 +1182,7 @@
                     </div>
                     <span class="email-hint">첨부파일은 이메일로 보내 주세요</span>
                 </div>
-                <button class="btn-copy" onclick="copyEmail()">주소 복사</button>
+                <div class="btn-copy-wrap"><div class="copy-tooltip" id="copyTooltip2">📋 복사되었습니다</div><button class="btn-copy" onclick="copyEmail(this)">주소 복사</button></div>
             </div>
             <div class="ord-sig">
                 <span class="ord-sig-name">Sukbeom Kim</span>
@@ -1210,7 +1219,7 @@
         const email = 'kimsukpil1' + '@' + 'gmail.com';
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(email).then(() => {
-                showToast('📋 이메일 주소가 복사되었습니다');
+                showToast('📋 복사되었습니다');
             }).catch(() => fallbackCopy(email));
         } else {
             fallbackCopy(email);
@@ -1227,18 +1236,22 @@
         el.setSelectionRange(0, 99999);
         try {
             document.execCommand('copy');
-            showToast('📋 이메일 주소가 복사되었습니다');
+            showToast('📋 복사되었습니다');
         } catch(e) {
-            showToast('❌ 복사에 실패했습니다. 직접 선택해 주세요');
+            showToast('❌ 복사 실패');
         }
         document.body.removeChild(el);
     }
 
     function showToast(msg) {
-        const toast = document.getElementById('toast');
-        toast.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
+        ['copyTooltip','copyTooltip2'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.textContent = msg;
+                el.classList.add('show');
+                setTimeout(() => el.classList.remove('show'), 2000);
+            }
+        });
     }
 
     // 주문서
