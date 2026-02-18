@@ -1207,7 +1207,7 @@
 
     // 이메일 복사
     function copyEmail() {
-        const email = 'kimsukpil1@gmail.com';
+        const email = 'kimsukpil1' + '@' + 'gmail.com';
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(email).then(() => {
                 showToast('📋 이메일 주소가 복사되었습니다');
