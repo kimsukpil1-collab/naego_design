@@ -873,7 +873,7 @@
                 <div class="email-top">
                     <div class="email-top-row">
                         <span class="email-lbl">첨부파일</span>
-                        <span class="email-addr">kimsukpil1@gmail.com</span>
+                        <span class="email-addr">kimsukpil1&#64;gmail&#46;com</span>
                     </div>
                     <span class="email-hint">첨부파일은 이메일로 보내 주세요</span>
                 </div>
@@ -1169,7 +1169,7 @@
                 <div class="email-top">
                     <div class="email-top-row">
                         <span class="email-lbl">첨부파일</span>
-                        <span class="email-addr">kimsukpil1@gmail.com</span>
+                        <span class="email-addr">kimsukpil1&#64;gmail&#46;com</span>
                     </div>
                     <span class="email-hint">첨부파일은 이메일로 보내 주세요</span>
                 </div>
@@ -1183,7 +1183,7 @@
     </div>
 </section>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
     // 스크롤 reveal — 기본 visible, 스크롤 진입 시 애니메이션
     document.querySelectorAll('.vb').forEach(el => el.classList.add('hidden-anim'));
     const observer = new IntersectionObserver((entries) => {
@@ -1280,9 +1280,4 @@
         localStorage.setItem('nd', ds); localStorage.setItem('nc', String(cnt));
         const text = `🎨 [홈페이지2주문_${ds}_${cnt}]\n\n📦 상품명: ${product}\n📞 연락처: ${contact}`;
         const el = document.getElementById('ordSuccess2');
-        el.style.display = 'flex';
-        try {
-            await fetch('https://script.google.com/macros/s/AKfycbymzFquDdmIHcimqhO0LkSgNt8xp5x9f7WCztr9BZJedBfcPVjHlH2d9sI8nK9xkM8JVQ/exec', {
-                method: 'POST', mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: '7299827824', tex
+        el.style.d
