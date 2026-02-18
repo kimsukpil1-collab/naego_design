@@ -1280,4 +1280,21 @@
         localStorage.setItem('nd', ds); localStorage.setItem('nc', String(cnt));
         const text = `🎨 [홈페이지2주문_${ds}_${cnt}]\n\n📦 상품명: ${product}\n📞 연락처: ${contact}`;
         const el = document.getElementById('ordSuccess2');
-        el.style.d
+        el.style.display = 'flex';
+        try {
+            await fetch('https://script.google.com/macros/s/AKfycbymzFquDdmIHcimqhO0LkSgNt8xp5x9f7WCztr9BZJedBfcPVjHlH2d9sI8nK9xkM8JVQ/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: '7299827824', text: text })
+            });
+        } catch(e) { console.error(e); }
+        setTimeout(() => { 
+            el.style.display = 'none'; 
+            document.getElementById('productName2').value = ''; 
+            document.getElementById('contactNum2').value = ''; 
+        }, 4000);
+    }
+</script>
+</body>
+</html>
